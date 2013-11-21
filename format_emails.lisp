@@ -5,7 +5,7 @@
 ;   (when 
 |#
 
-(defparameter *my-data* (list "foo"))
+(defparameter *my-data* '("foo" "bar"))
 
 ;(with-open-file (my-stream "input-list" :direction :input)
 ;  (print my-stream))
@@ -17,8 +17,8 @@
 
 (defun mass-email-expander (domain prefix-list &key output-stream)
   "format a bunch of emails to the same domain"
-  (with-open-file (my-stream input-file :direction :output)
+  (with-open-file (my-stream output-stream :direction :output)
     (loop for i
        from 0
        do (email-expander domain (nth i prefix-list) :target-stream my-stream)
-       until (= i (length prefix-list)))))
+       until (= i (1- (length prefix-list))))))
